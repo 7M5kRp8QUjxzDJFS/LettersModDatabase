@@ -22,7 +22,7 @@ import java.sql.SQLException;
  */
 public final class Main {
 
-  private static final int DEFAULT_PORT = 4567;
+  private static final int DEFAULT_PORT = Integer.parseInt(System.getenv("PORT"));
 
   /**
    * The initial method called when execution begins.
