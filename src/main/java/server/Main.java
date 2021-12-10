@@ -41,7 +41,10 @@ public final class Main {
   private void run() throws SQLException, ClassNotFoundException {
     // To connect to local db use:
     // LettersDatabase db = new LettersDatabase("MailDatabase.sqlite3");
+
+    // TODO: connect to heroku db instead of local
     LettersDatabase db = new LettersDatabase("//localhost:5432/addresses");
+    System.out.println(System.getenv("JDBC_DATABASE_URL"));
     System.out.println("Database connected!");
 
     // TODO: parse commands/handle spark routes

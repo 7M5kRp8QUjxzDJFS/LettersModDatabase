@@ -20,5 +20,17 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/addresses</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="dfhc79qcg1bkf9@ec2-44-196-8-220.compute-1.amazonaws.com" uuid="d371b541-6e27-4df7-a25d-c36d95996378">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-44-196-8-220.compute-1.amazonaws.com:5432/dfhc79qcg1bkf9</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="ssl" value="true" />
+        <property name="sslmode" value="verify-ca" />
+        <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

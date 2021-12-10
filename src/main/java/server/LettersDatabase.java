@@ -44,13 +44,10 @@ public class LettersDatabase {
 
 	public ArrayList<Address> getAddressByAddress(String address) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"SELECT Address, TrueKey, Active" 
-			+ "FROM Addresses"
-			+ "WHERE Address=?"
-		);
+			"SELECT Address, TrueKey FROM Addresses WHERE Address=?");
 		prep.setString(1, address);
 		ResultSet rs = prep.executeQuery();
-		ArrayList<Address> resultList = new ArrayList<Address>(); 
+		ArrayList<Address> resultList = new ArrayList<Address>();
 		while (rs.next()) {
 			Address currentAddress = new Address(rs.getString(1), rs.getInt(2));
 			resultList.add(currentAddress);
@@ -60,10 +57,7 @@ public class LettersDatabase {
 
 	public ArrayList<Address> getAddressByTrueKey(String address) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"SELECT Address, TrueKey, Active" 
-			+ "FROM Addresses"
-			+ "WHERE TrueKey=?"
-		);
+				"SELECT Address, TrueKey FROM Addresses WHERE TrueKey=?");
 		prep.setString(1, address);
 		ResultSet rs = prep.executeQuery();
 		ArrayList<Address> resultList = new ArrayList<Address>(); 
@@ -77,17 +71,14 @@ public class LettersDatabase {
 	
 	public ArrayList<Parcel> getParcelById(int id) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"SELECT ID, Recipient, Sender, Downloaded, JsonData" 
-			+ "FROM Parcels"
-			+ "WHERE ID=?"
-		);
+			"SELECT ID, Recipient, Sender, Downloaded, Parcel FROM Parcels WHERE ID=?");
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
 		ArrayList<Parcel> resultList = new ArrayList<Parcel>(); 
 		while (rs.next()) {
 
-			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getString(2),
-					rs.getString(3), rs.getString(4), rs.getString(5));
+			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getInt(2),
+					rs.getInt(3), rs.getString(4), rs.getString(5));
 			resultList.add(currentParcel);
 		}
 		return resultList;
@@ -95,16 +86,13 @@ public class LettersDatabase {
 	
 	public ArrayList<Parcel> getParcelByRecipient(String recipient) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"SELECT ID, Recipient, Sender, Downloaded, JsonData" 
-			+ "FROM Parcels"
-			+ "WHERE Recipient=?"
-		);
+			"SELECT ID, Recipient, Sender, Downloaded, Parcel FROM Parcels WHERE Recipient=?");
 		prep.setString(1, recipient);
 		ResultSet rs = prep.executeQuery();
 		ArrayList<Parcel> resultList = new ArrayList<Parcel>(); 
 		while (rs.next()) {
-			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getString(2),
-					rs.getString(3), rs.getString(4), rs.getString(5));
+			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getInt(2),
+					rs.getInt(3), rs.getString(4), rs.getString(5));
 			resultList.add(currentParcel);
 		}
 		return resultList;
@@ -112,16 +100,13 @@ public class LettersDatabase {
 
 	public ArrayList<Parcel> getParcelBySender(String sender) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"SELECT ID, Recipient, Sender, Downloaded, JsonData" 
-			+ "FROM Parcels"
-			+ "WHERE Sender=?"
-		);
+			"SELECT ID, Recipient, Sender, Downloaded, Parcel FROM Parcels WHERE Sender=?");
 		prep.setString(1, sender);
 		ResultSet rs = prep.executeQuery();
 		ArrayList<Parcel> resultList = new ArrayList<Parcel>(); 
 		while (rs.next()) {
-			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getString(2),
-					rs.getString(3), rs.getString(4), rs.getString(5));
+			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getInt(2),
+					rs.getInt(3), rs.getString(4), rs.getString(5));
 			resultList.add(currentParcel);
 		}
 		return resultList;
@@ -129,28 +114,22 @@ public class LettersDatabase {
 
 	public ArrayList<Parcel> getDownloadedParcels() throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"SELECT ID, Recipient, Sender, Downloaded, JsonData" 
-			+ "FROM Parcels"
-			+ "WHERE Downloaded=true"
-		);
+			"SELECT ID, Recipient, Sender, Downloaded, Parcel FROM Parcels WHERE Downloaded=true");
 		ResultSet rs = prep.executeQuery();
 		ArrayList<Parcel> resultList = new ArrayList<Parcel>(); 
 		while (rs.next()) {
-			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getString(2),
-					rs.getString(3), rs.getString(4), rs.getString(5));
+			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getInt(2),
+					rs.getInt(3), rs.getString(4), rs.getString(5));
 			resultList.add(currentParcel);
 		}
 		return resultList;
 	}
 
-	public void setParcelDownloaded(int id, boolean downloaded) throws SQLException {
+	public void setParcelDownloaded(int id, String downloaded) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"UPDATE Parcels"
-			+ "SET Downloaded = ?"
-			+ "WHERE Id=?"
-		);
+			"UPDATE Parcels SET Downloaded = ? WHERE Id=?");
 		prep.setInt(2, id);
-		prep.setBoolean(1, downloaded);
+		prep.setString(1, downloaded);
 		prep.executeUpdate();
 	}
 
@@ -174,8 +153,8 @@ public class LettersDatabase {
 			+ "VALUES (?, ?, ?, ?, ?)"
 		);
 		prep.setInt(1, parcel.getId());
-		prep.setString(2, parcel.getRecipient());
-		prep.setString(3, parcel.getSender());
+		prep.setInt(2, parcel.getRecipient());
+		prep.setInt(3, parcel.getSender());
 		prep.setString(4, String.valueOf(parcel.getDownloaded()));
 		prep.setString(5, parcel.getParcel());
 

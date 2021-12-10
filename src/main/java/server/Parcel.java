@@ -6,8 +6,8 @@ package server;
 public class Parcel {
 
   private final Integer id;
-  private String recipient;
-  private String sender;
+  private Integer recipient;
+  private Integer sender;
   private String downloaded;
   private String parcel;
 
@@ -19,7 +19,7 @@ public class Parcel {
    * @param downloaded - True if the parcel has been downloaded into the game, else false.
    * @param parcel - The JSON data for the item(s) sent.
    */
-  public Parcel(Integer id, String recipient, String sender, String downloaded, String parcel) {
+  public Parcel(Integer id, Integer recipient, Integer sender, String downloaded, String parcel) {
     this.id = id;
     this.recipient = recipient;
     this.sender = sender;
@@ -31,11 +31,11 @@ public class Parcel {
     return this.id;
   }
 
-  public String getRecipient() {
+  public Integer getRecipient() {
     return this.recipient;
   }
 
-  public String getSender() {
+  public Integer getSender() {
     return this.sender;
   }
 
