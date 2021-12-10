@@ -19,15 +19,24 @@ public class LettersDatabase {
 
 	private Connection conn = null;
 
-	public LettersDatabase(String pathToFile) throws ClassNotFoundException, SQLException {
+	public LettersDatabase(String urlToDB) throws ClassNotFoundException, SQLException {
 		Class.forName("org.postgresql.Driver");
-		String urlToDB = "jdbc:postgresql:" + pathToFile;
+		// String urlToDB = "" + pathToFile;
+		String username = "";
+		String password = "";
+		if (urlToDB.equals("jdbc:postgresql://localhost:5432/addresses")) {
+			username = "postgres";
+			password = "password";
+		} else {
+			username = System.getenv("JDBC_DATABASE_USERNAME");
+			password = System.getenv("JDBC_DATABASE_PASSWORD");
+		}
 		try {
-			conn = DriverManager.getConnection(urlToDB, "postgres", "password");
+			conn = DriverManager.getConnection(urlToDB, username, password);
 		} catch (Exception e) {
 			System.out.println("ERROR: Couldn't connect" + e.getMessage());
 		}
-		Statement stat = conn.createStatement();
+		//Statement stat = conn.createStatement();
 		//stat.executeUpdate("PRAGMA foreign_keys=ON;");
 	}
 
