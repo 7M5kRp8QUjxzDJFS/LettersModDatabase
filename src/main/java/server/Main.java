@@ -9,6 +9,7 @@ import spark.Response;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import javax.sound.midi.SysexMessage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.sql.SQLException;
  */
 public final class Main {
 
-  private static final int DEFAULT_PORT = Integer.parseInt(System.getenv("PORT"));
+  private static int DEFAULT_PORT = Integer.parseInt(System.getenv("PORT"));
 
   /**
    * The initial method called when execution begins.
@@ -59,9 +60,7 @@ public final class Main {
 
     OptionSet options = parser.parse(args);
 
-    if (options.has("gui")) {
-      runSparkServer((int) options.valueOf("port"));
-    }
+    runSparkServer((int) options.valueOf("port"));
 
     try (BufferedReader br = new BufferedReader(
         new InputStreamReader(System.in))) {
