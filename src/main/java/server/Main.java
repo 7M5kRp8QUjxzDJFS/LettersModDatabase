@@ -9,8 +9,10 @@ import spark.Response;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.SQLException;
@@ -39,11 +41,7 @@ public final class Main {
 
   @SuppressWarnings("checkstyle:AvoidNestedBlocks")
   private void run() throws SQLException, ClassNotFoundException {
-    // To connect to local db use:
-    // LettersDatabase db = new LettersDatabase("MailDatabase.sqlite3");
     LettersDatabase db = null;
-
-    // TODO: connect to heroku db instead of local
     if (System.getenv("JDBC_DATABASE_URL") != null) {
       db = new LettersDatabase(System.getenv("JDBC_DATABASE_URL"));
     } else {
@@ -52,6 +50,7 @@ public final class Main {
     System.out.println("Database connected!");
 
     // TODO: parse commands/handle spark routes
+    ParseCommands replit = new ParseCommands();
 
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
@@ -62,6 +61,20 @@ public final class Main {
 
     if (options.has("gui")) {
       runSparkServer((int) options.valueOf("port"));
+    }
+
+    try (BufferedReader br = new BufferedReader(
+        new InputStreamReader(System.in))) {
+      String input;
+      while ((input = br.readLine()) != null) {
+        input = input.trim();
+        ParseCommands.setInputLine(input);
+        String command = ParseCommands.getArguments().get(0);
+        replit.handleArgs(command);
+      }
+    } catch (Exception e) {
+      System.out.println("ERROR: Invalid input for REPL");
+      ParseCommands.setOutputString("ERROR: Invalid input for REPL");
     }
   }
 
@@ -103,6 +116,10 @@ public final class Main {
     Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
     // Setup Spark Routes
+    Spark.post("/changeaddr", new ChangeAddr());
+    Spark.post("/initaddr", new InitAddr());
+    Spark.post("/getmail", new GetMail());
+    Spark.post("/send", new Send());
   }
 
   /**
