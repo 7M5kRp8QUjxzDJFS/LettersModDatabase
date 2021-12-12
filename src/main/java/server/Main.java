@@ -20,9 +20,13 @@ import java.sql.SQLException;
 
 /**
  * The Main class, which connects the database and spark routes.
+ * Code modeled off of CS32 project Main classes (project 2 integration).
  */
 public final class Main {
 
+  /*TODO: Add method to dynamically set port depending on whether the code is being run
+     locally or on Heroku.
+     For now manually change to some port when working locally. */
   private static int DEFAULT_PORT = Integer.parseInt(System.getenv("PORT"));
 
   /**
@@ -45,12 +49,13 @@ public final class Main {
     LettersDatabase db = null;
     if (System.getenv("JDBC_DATABASE_URL") != null) {
       db = new LettersDatabase(System.getenv("JDBC_DATABASE_URL"));
+      System.out.println("Heroku Postgresql database connected!");
     } else {
+      // Don't think this works if you don't have postgres, so change it to connect to the
+      // local sqlite3 DB instead if necessary.
       db = new LettersDatabase("jdbc:postgresql://localhost:5432/addresses");
+      System.out.println("Local database connected!");
     }
-    System.out.println("Database connected!");
-
-    // TODO: parse commands/handle spark routes
     ParseCommands replit = new ParseCommands();
 
     OptionParser parser = new OptionParser();
@@ -114,6 +119,7 @@ public final class Main {
 
     Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
+    // TODO: Update temporary code to actually interact with DB.
     // Setup Spark Routes
     Spark.post("/changeaddr", new ChangeAddr());
     Spark.post("/initaddr", new InitAddr());
