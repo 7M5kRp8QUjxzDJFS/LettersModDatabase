@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * @author lbrito2
  */
 public class LettersDatabase {
-
 	private Connection conn = null;
 
 	/**
@@ -100,7 +99,21 @@ public class LettersDatabase {
 		}
 		return resultList;
 	}
-	
+
+	/**
+	 * Update the Address row with the given TrueKey to have address field newAddress
+	 * @param trueKey
+	 * @param newAddress
+	 * @throws SQLException
+	 */
+	public void changeAddress(String trueKey, String newAddress) throws SQLException {
+
+		PreparedStatement prep = conn.prepareStatement(
+			"UPDATE Addresses SET Address = ? WHERE TrueKey=?");
+		prep.setString(2, trueKey);
+		prep.setString(1, newAddress);
+		prep.executeUpdate();
+	}
 	/**
 	 * Perform query on Parcel relation for rows with given Id
 	 * 
