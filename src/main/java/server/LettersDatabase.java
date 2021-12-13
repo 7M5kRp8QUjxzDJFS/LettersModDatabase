@@ -239,6 +239,22 @@ public class LettersDatabase {
 		prep.executeUpdate();
 	}
 
+	/**
+	 * Delete the Parcel relation row with the given Id. 
+	 * 
+	 * @param id integer, id of parcel to delete 
+	 * @throws SQLException
+	 */
+	public void deleteParcel(int id) throws SQLException {
+		
+		PreparedStatement prep = conn.prepareStatement(
+			"DELETE FROM Parcels WHERE Id=?"
+		);
+		prep.setInt(1, id);
+
+		prep.executeUpdate(); 
+	}
+
 	public void insertAddress(Address address) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
 			"INSERT INTO Addresses (Address, TrueKey)"
