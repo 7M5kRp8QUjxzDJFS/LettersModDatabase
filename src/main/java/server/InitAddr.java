@@ -20,7 +20,8 @@ public class InitAddr implements Route {
     System.out.println("initaddr req receieved: " + request.headers());
     System.out.println("initaddr req body receieved: " + request.body());
 
-    LettersDatabase db = null;
+    // Connect to database
+    LettersDatabase db;
     if (System.getenv("JDBC_DATABASE_URL") != null) {
       db = new LettersDatabase(System.getenv("JDBC_DATABASE_URL"));
       System.out.println("Heroku Postgresql database connected!");
@@ -31,13 +32,17 @@ public class InitAddr implements Route {
       System.out.println("Local database connected!");
     }
 
+    // Make new address not already in the database
     String newAddr = newAddressMaker();
     while (db.getAddressByAddress(newAddr).size() != 0) {
       newAddr = newAddressMaker();
     }
 
+    // Add new address to database
     db.insertAddress(newAddr);
+    System.out.println(newAddr + "  added to table.");
 
+    // Return the new address to be displayed to the user
     Gson gson = new Gson();
     Map<String, String> variables = ImmutableMap.of("newaddr", newAddr);
 

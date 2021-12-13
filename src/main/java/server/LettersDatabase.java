@@ -107,13 +107,13 @@ public class LettersDatabase {
 	 * @throws SQLException
 	 */
 	public void changeAddress(String trueKey, String newAddress) throws SQLException {
-
 		PreparedStatement prep = conn.prepareStatement(
 			"UPDATE Addresses SET Address = ? WHERE TrueKey=?");
-		prep.setString(2, trueKey);
+		prep.setInt(2, Integer.parseInt(trueKey));
 		prep.setString(1, newAddress);
 		prep.executeUpdate();
 	}
+
 	/**
 	 * Perform query on Parcel relation for rows with given Id
 	 * 
