@@ -268,13 +268,17 @@ public class LettersDatabase {
 		prep.executeUpdate(); 
 	}
 
-	public void insertAddress(Address address) throws SQLException {
+	/**
+	 * Inserts an address into the Addresses table. The TrueKey is set by the table.
+	 * @param address - The new address.
+	 * @throws SQLException
+	 */
+	public void insertAddress(String address) throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"INSERT INTO Addresses (Address, TrueKey)"
-			+ "VALUES (?, ?)"
+			"INSERT INTO Addresses(Address)"
+			+ "VALUES (?)"
 		);
-		prep.setString(1, address.getAddress());
-		prep.setInt(2, address.getTrueKey());
+		prep.setString(1, address);
 
 		prep.executeUpdate();
 	}
