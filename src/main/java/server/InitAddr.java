@@ -1,17 +1,14 @@
 package server;
 
 import java.util.Map;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
-
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 /**
- * InitAddr dummy endpoint
- *
+ * A class that handles initialize address requests.
  */
 public class InitAddr implements Route {
 

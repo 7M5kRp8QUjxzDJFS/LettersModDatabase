@@ -1,11 +1,10 @@
 package server;
+
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import com.google.common.collect.ImmutableMap;
-
 import com.google.gson.Gson;
-
 import org.json.JSONObject;
 
 public class Reset implements Route {

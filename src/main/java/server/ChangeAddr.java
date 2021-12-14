@@ -1,18 +1,15 @@
 package server;
 
 import java.util.Map;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
-
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 /**
- * ChangeAddr dummy endpoint
- *
+ * A class that handles a change address request.
  */
 public class ChangeAddr implements Route {
 

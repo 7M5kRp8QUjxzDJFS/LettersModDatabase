@@ -24,10 +24,7 @@ import java.sql.SQLException;
  */
 public final class Main {
 
-  /*TODO: Add method to dynamically set port depending on whether the code is being run
-     locally or on Heroku.
-     For now manually change to some port when working locally. */
-  private static int DEFAULT_PORT = Integer.parseInt(System.getenv("PORT"));
+  private static final int DEFAULT_PORT = setDefaultPort();
 
   /**
    * The initial method called when execution begins.
@@ -56,6 +53,7 @@ public final class Main {
       db = new LettersDatabase("jdbc:postgresql://localhost:5432/addresses");
       System.out.println("Local database connected!");
     }
+
     ParseCommands replit = new ParseCommands();
 
     OptionParser parser = new OptionParser();
@@ -142,6 +140,21 @@ public final class Main {
         pw.println("</pre>");
       }
       res.body(stacktrace.toString());
+    }
+  }
+
+  /**
+   * Helper method that dynamically sets the default port based on
+   * whether the code is being run locally or on heroku.
+   * @return - The default port as a int
+   */
+  private static int setDefaultPort() {
+    if (System.getenv("PORT") != null) {
+      System.out.println("Port set to: " + System.getenv("PORT"));
+      return Integer.parseInt(System.getenv("PORT"));
+    } else {
+      System.out.println("Port set to: 4567");
+      return 4567;
     }
   }
 }

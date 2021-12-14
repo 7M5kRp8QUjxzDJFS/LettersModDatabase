@@ -25,9 +25,8 @@ public class LettersDatabase {
 	 */
 	public LettersDatabase(String urlToDB) throws ClassNotFoundException, SQLException {
 		Class.forName("org.postgresql.Driver");
-		// String urlToDB = "" + pathToFile;
-		String username = "";
-		String password = "";
+		String username;
+		String password;
 		if (urlToDB.equals("jdbc:postgresql://localhost:5432/addresses")) {
 			username = "postgres";
 			password = "password";
