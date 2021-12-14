@@ -28,26 +28,31 @@ public class GetMail implements Route {
     parcel1.put("id", "1");
     parcel1.put("recipient", address);
     parcel1.put("sender","24601");
+    parcel1.put("parcelString", "{id:\"minecraft:diamond\", Count:1b}");
 
     JSONObject parcel2 = new JSONObject();
     parcel2.put("id", "2");
     parcel2.put("recipient", address);
     parcel2.put("sender","69420");
+    parcel2.put("parcelString", "{id:\"minecraft:emerald\", Count:1b}");
 
     JSONObject parcel3 = new JSONObject();
     parcel3.put("id", "3");
     parcel3.put("recipient", address);
     parcel3.put("sender","007");
+    parcel3.put("parcelString", "{id:\"minecraft:cornflower\", Count:1b}");
 
     JSONObject parcel4 = new JSONObject();
     parcel4.put("id", "4");
     parcel4.put("recipient", address);
     parcel4.put("sender","1234");
+    parcel4.put("parcelString", "{id:\"minecraft:poppy\", Count:1b}");
 
     JSONObject parcel5 = new JSONObject();
     parcel5.put("id", "5");
     parcel5.put("recipient", address);
     parcel5.put("sender","666");
+    parcel5.put("parcelString", "{id:\"minecraft:sunflower\", Count:1b}");
 
 
     // what if we store each way as a Way object with id, lat, and lon
