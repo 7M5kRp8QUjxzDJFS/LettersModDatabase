@@ -45,6 +45,7 @@ public class InitAddr implements Route {
 
     System.out.println("variables: " + gson.toJson(variables));
 
+    db.closeDB();
     return gson.toJson(variables);
   }
 

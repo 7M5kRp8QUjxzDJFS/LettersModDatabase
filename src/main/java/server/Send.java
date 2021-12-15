@@ -40,6 +40,7 @@ public class Send implements Route {
 
     Map<String, String> variables = ImmutableMap.of("receivedParcel", parcelString);
 
+    db.closeDB();
     return gson.toJson(variables);
   }
 

@@ -61,6 +61,7 @@ public class GetMail implements Route {
         parcelJSONs.toArray(new String[0]));
     System.out.println(parcelJSONs.size() + " parcels sent to user.");
 
+    db.closeDB();
     return gson.toJson(variables);
   }
 

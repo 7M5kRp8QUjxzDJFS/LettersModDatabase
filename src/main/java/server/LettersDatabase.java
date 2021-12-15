@@ -42,6 +42,15 @@ public class LettersDatabase {
 	}
 
 	/**
+	 * Method that closes the connection once queries are done.
+	 * @throws SQLException
+	 */
+	public void closeDB() throws SQLException {
+		System.out.println("Connection closed.");
+		this.conn.close();
+	}
+
+	/**
 	 * Perform the provided query on the addresses relation. 
 	 * 
 	 * @param query the SQL query to perform as a String

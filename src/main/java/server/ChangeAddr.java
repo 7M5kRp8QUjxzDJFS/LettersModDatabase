@@ -51,6 +51,7 @@ public class ChangeAddr implements Route {
     // Return the new address to be displayed to the user
     Map<String, String> variables = ImmutableMap.of("newaddr", newAddr);
 
+    db.closeDB();
     return gson.toJson(variables);
   }
 
