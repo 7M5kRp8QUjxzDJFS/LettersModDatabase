@@ -1,11 +1,12 @@
 # README
 ## Project Details
-Project Name: LettersModDatabase 
+Project Name: Letters Mod Database 
 
 Project Description: This repository contains everything related to the server and 
 database part of our final project. This includes the ORM, the objects used to represent
 the data, and the classes that handle our spark requests. The database it connects to is
-also hosted on Heroku, but there are local variants.
+also hosted on Heroku, but there are local variants. The goal is to allow users to send mail
+to our database that can then be received by the intended recipient.
 
 Team Members and Contributions:
 - Sheridan Feucht (sfeucht): Created the mockups for the classes that handle the spark routes

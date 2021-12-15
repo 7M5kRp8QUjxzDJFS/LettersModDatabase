@@ -35,10 +35,8 @@ public class Send implements Route {
       System.out.println("Local database connected!");
     }
 
-    db.insertParcel(recipient, sender, parcelString); 
-    // what if we store each way as a Way object with id, lat, and lon
-    // getWays returns a lst = List<Way>
-    // and then ImmutableMap.of("ways", lst)
+    db.insertParcel(recipient, sender, parcelString);
+
     Map<String, String> variables = ImmutableMap.of("receivedParcel", parcelString);
 
     return gson.toJson(variables);

@@ -56,8 +56,9 @@ public class GetMail implements Route {
       parcelJSONs.add(parcelJSON.toString());
     }
 
-    Map<String, String[]> variables = ImmutableMap.of("parcels", 
-                                  parcelJSONs.toArray(String[] :: new));
+    Map<String, String[]> variables = ImmutableMap.of("parcels",
+        parcelJSONs.toArray(new String[0]));
+    System.out.println(parcelJSONs);
 
     return gson.toJson(variables);
   }
