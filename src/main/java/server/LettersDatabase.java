@@ -215,6 +215,20 @@ public class LettersDatabase {
 		return resultList;
 	}
 
+	public ArrayList<Parcel> getUndownloadedParcelsByRecipient(int recipient) throws SQLException {
+		PreparedStatement prep = conn.prepareStatement(
+			"SELECT ID, Recipient, Sender, Downloaded, Parcel FROM Parcels WHERE Downloaded=false AND recipient=?");
+		prep.setInt(1, recipient);
+		ResultSet rs = prep.executeQuery();
+		ArrayList<Parcel> resultList = new ArrayList<Parcel>(); 
+		while (rs.next()) {
+			Parcel currentParcel = new Parcel(rs.getInt(1), rs.getInt(2),
+					rs.getInt(3), rs.getString(4), rs.getString(5));
+			resultList.add(currentParcel);
+		}
+		return resultList;
+	}
+
 	/**
 	 * Update the Parcel relation row with the given id to have the given 
 	 * downloaded value. 
@@ -237,16 +251,19 @@ public class LettersDatabase {
 	 * @param parcel Parcel object to insert
 	 * @throws SQLException
 	 */
-	public void insertParcel(Parcel parcel) throws SQLException {
+	public void insertParcel(String recipient, String sender, String parcelString)
+		 throws SQLException {
 		PreparedStatement prep = conn.prepareStatement(
-			"INSERT INTO Parcels (ID, Recipient, Sender, Downloaded, Parcel)"
-			+ "VALUES (?, ?, ?, ?, ?)"
+			"INSERT INTO Parcels (Recipient, Sender, Downloaded, Parcel)"
+			+ "VALUES (?, ?, ?, ?)"
 		);
-		prep.setInt(1, parcel.getId());
-		prep.setInt(2, parcel.getRecipient());
-		prep.setInt(3, parcel.getSender());
-		prep.setString(4, String.valueOf(parcel.getDownloaded()));
-		prep.setString(5, parcel.getParcel());
+		prep.setString(2, recipient);
+		prep.setString(3, sender);
+		// New parcel has default downloaded value "false"; assume new parcel 
+		// has not been downloaded before endpoint send is done handling
+		// request. 
+		prep.setString(4, "false");
+		prep.setString(5, parcelString);
 
 		prep.executeUpdate();
 	}

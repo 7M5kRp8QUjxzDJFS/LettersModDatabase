@@ -24,7 +24,18 @@ public class Send implements Route {
     String recipient = data.getString("recipient");
     String parcelString = data.getString("parcelString");
 
+    LettersDatabase db;
+    if (System.getenv("JDBC_DATABASE_URL") != null) {
+      db = new LettersDatabase(System.getenv("JDBC_DATABASE_URL"));
+      System.out.println("Heroku Postgresql database connected!");
+    } else {
+      // Don't think this works if you don't have postgres, so change it to connect to the
+      // local sqlite3 DB instead if necessary.
+      db = new LettersDatabase("jdbc:postgresql://localhost:5432/addresses");
+      System.out.println("Local database connected!");
+    }
 
+    db.insertParcel(recipient, sender, parcelString); 
     // what if we store each way as a Way object with id, lat, and lon
     // getWays returns a lst = List<Way>
     // and then ImmutableMap.of("ways", lst)
