@@ -24,6 +24,11 @@ public class Send implements Route {
     String recipient = data.getString("recipient");
     String parcelString = data.getString("parcelString");
 
+    Map<String, String> variables = ImmutableMap.of("receivedParcel", parcelString);
+
+    return gson.toJson(variables);
+
+    /*
     LettersDatabase db;
     if (System.getenv("JDBC_DATABASE_URL") != null) {
       db = new LettersDatabase(System.getenv("JDBC_DATABASE_URL"));
@@ -42,6 +47,7 @@ public class Send implements Route {
 
     db.closeDB();
     return gson.toJson(variables);
+     */
   }
 
 }
