@@ -38,6 +38,7 @@ public class GetMail implements Route {
 
     int recipientId = db.getAddressByAddress(address).get(0).getTrueKey();
     ArrayList<Parcel> undownloadedParcels = db.getUndownloadedParcelsByRecipient(recipientId);
+    System.out.println("Undownloaded parcels retrieved.");
 
     // Store query results in JSONs 
     ArrayList<String> parcelJSONs = new ArrayList<String>();
@@ -58,7 +59,7 @@ public class GetMail implements Route {
 
     Map<String, String[]> variables = ImmutableMap.of("parcels",
         parcelJSONs.toArray(new String[0]));
-    System.out.println(parcelJSONs);
+    System.out.println(parcelJSONs.size() + " parcels sent to user.");
 
     return gson.toJson(variables);
   }

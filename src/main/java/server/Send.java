@@ -36,6 +36,7 @@ public class Send implements Route {
     }
 
     db.insertParcel(recipient, sender, parcelString);
+    System.out.println(parcelString + " sent to " + recipient + " from " + sender);
 
     Map<String, String> variables = ImmutableMap.of("receivedParcel", parcelString);
 
