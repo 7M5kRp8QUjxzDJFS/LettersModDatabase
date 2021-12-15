@@ -47,7 +47,9 @@ public class LettersDatabase {
 	 */
 	public void closeDB() throws SQLException {
 		System.out.println("Connection closed.");
-		this.conn.close();
+		if (this.conn != null) {
+			this.conn.close();
+		}
 	}
 
 	/**
